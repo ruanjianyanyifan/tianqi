@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_48dp"
+    android:layout_alignParentTop="true"
+    android:background="@color/colorSemiTransparent"
+    android:elevation="@dimen/material_8dp">
+
+    <TextView
+        android:id="@+id/tv_city_weather_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/material_16dp"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/material_20dp"
+        android:text="@string/app_name"/>
+
+    <ImageButton
+        android:id="@+id/ib_city_weather_toolbar_menu"
+        android:layout_width="@dimen/material_48dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_button_rect_semitrans"/>
+
+    <ImageButton
+        android:id="@+id/ib_city_weather_toolbar_cities"
+        android:layout_width="@dimen/material_48dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/ib_city_weather_toolbar_menu"
+        android:background="@drawable/selector_button_rect_semitrans"/>
+
+</RelativeLayout>

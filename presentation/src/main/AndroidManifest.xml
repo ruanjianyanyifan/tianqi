@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zeuschan.littlefreshweather.prsentation"
+    android:installLocation="internalOnly">
+
+    <permission
+        android:name="com.zeuschan.littlefreshweather.prsentation.SEND_WEATHER_UPDATE"
+        android:description="@string/permission_send_update_desc"
+        android:label="@string/permission_send_update_label"
+        android:permissionGroup="android.permission-group.PERSONAL_INFO"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.zeuschan.littlefreshweather.prsentation.RECV_WEATHER_UPDATE"
+        android:description="@string/permission_recv_update_desc"
+        android:label="@string/permission_recv_update_label"
+        android:permissionGroup="android.permission-group.PERSONAL_INFO"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="com.zeuschan.littlefreshweather.prsentation.SEND_WEATHER_UPDATE" />
+    <uses-permission android:name="com.zeuschan.littlefreshweather.prsentation.RECV_WEATHER_UPDATE" />
+
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- key1"a84d0277a1addeb4511ebe4107002f48" -->
+        <!-- key2"ca6505f5e3760f0910630f6bcd298b40" -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="a84d0277a1addeb4511ebe4107002f48" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity
+            android:name=".view.activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activity.CityWeatherActivity"
+            android:theme="@style/AppTheme.Primary"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.CitiesActivity"
+            android:theme="@style/AppTheme.Primary"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".view.activity.SettingsActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".service.WeatherNotificationService"
+            android:process="com.zeuschan.littlefreshweather.prsentation.notify"/>
+
+        <service android:name=".service.WeatherUpdateService"
+            android:process=":update"/>
+
+        <receiver android:name=".receiver.AlarmReceiver"
+            android:permission="com.zeuschan.littlefreshweather.prsentation.SEND_WEATHER_UPDATE"
+            android:process=":update"/>
+        <receiver
+            android:name=".receiver.WeatherAppWidget"
+            android:label="@string/app_name"
+            android:permission="com.zeuschan.littlefreshweather.prsentation.SEND_WEATHER_UPDATE"
+            android:process="com.zeuschan.littlefreshweather.prsentation.appwidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.zeuschan.littlefreshweather.prsentation.UPDATE_WIDGET" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_provider_info" />
+        </receiver>
+    </application>
+
+</manifest>
